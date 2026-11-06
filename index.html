@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Săn Xu TikTok Live Pro</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0b0d19 0%, #06070c 100%);
+      --card-bg: rgba(22, 26, 46, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #fe2c55;
+      --accent: #25f4ee;
+      --gold: #ffcc00;
+      --text: #ffffff;
+      --text-sub: #a0a5c0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container { width: 100%; max-width: 520px; margin: 0 auto; }
+
+    /* MÀN HÌNH NHẬP KEY */
+    .key-screen {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      padding: 35px 24px;
+      border-radius: 24px;
+      text-align: center;
+      margin-top: 50px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(254, 44, 85, 0.15);
+    }
+
+    .icon-badge {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary), #e11d48);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 32px;
+      box-shadow: 0 10px 25px rgba(254, 44, 85, 0.4);
+    }
+
+    .key-screen h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(to right, #fff, var(--text-sub));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .key-screen p { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 25px; line-height: 1.4; }
+
+    .key-input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 12, 22, 0.8);
+      color: #fff;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 18px;
+      outline: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .key-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(37, 244, 238, 0.3);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, var(--primary), #e11d48);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(254, 44, 85, 0.35);
+    }
+
+    .btn-main:active { transform: scale(0.98); opacity: 0.9; }
+
+    /* MÀN HÌNH TOOL CHÍNH */
+    .tool-screen { display: none; width: 100%; }
+
+    .app-header { text-align: center; padding: 10px 0 20px; }
+
+    .app-header h1 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      background: linear-gradient(to right, var(--accent), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .app-header p { color: var(--text-sub); font-size: 0.85rem; margin-top: 4px; }
+
+    .action-bar { margin-bottom: 20px; }
+
+    .btn-scan {
+      background: linear-gradient(135deg, var(--accent), #00b894);
+      color: #050b14;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(37, 244, 238, 0.25);
+    }
+
+    .live-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .live-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .live-info { flex: 1; padding-right: 12px; }
+
+    .live-user {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-desc {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .live-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+
+    .coin-badge {
+      background: rgba(255, 204, 0, 0.12);
+      color: var(--gold);
+      border: 1px solid rgba(255, 204, 0, 0.3);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .btn-go {
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(254, 44, 85, 0.3);
+    }
+
+    .loading {
+      text-align: center;
+      color: var(--accent);
+      padding: 40px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- MÀN HÌNH KÍCH HOẠT KEY -->
+    <div id="key-screen" class="key-screen">
+      <div class="icon-badge">🔑</div>
+      <h2>KÍCH HOẠT VIFON TOOL</h2>
+      <p>Nhập mã Key do chủ shop cấp để bắt đầu sử dụng.</p>
+      <input type="text" id="user-key" class="key-input" placeholder="TTXU-XXXXXX" autocomplete="off" spellcheck="false">
+      <button class="btn btn-main" id="btn-verify" onclick="verifyKey()">KÍCH HOẠT VÀ SỬ DỤNG</button>
+      <div id="msg" style="margin-top: 15px; font-size: 0.85rem; font-weight: 600;"></div>
+    </div>
+
+    <!-- MÀN HÌNH TOOL -->
+    <div id="tool-screen" class="tool-screen">
+      <div class="app-header">
+        <h1>⚡ TIKTOK LIVE COIN HUNTER</h1>
+        <p>Phòng Live thả rương xu khủng nhất đang diễn ra</p>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn btn-scan" onclick="scanLive()">🔄 QUÉT TÌM PHÒNG MỚI</button>
+      </div>
+
+      <div id="live-list" class="live-list"></div>
+    </div>
+  </div>
+
+  <!-- Firebase Database SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+    // Cấu hình kết nối Đám mây
+    const firebaseConfig = {
+      databaseURL: "https://vifon-key-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database().ref('tiktok_keys');
+
+    window.onload = function() {
+      const savedKey = localStorage.getItem('active_user_key');
+      if (savedKey) {
+        checkKeyOnCloud(savedKey, (isValid) => {
+          if (isValid) openToolScreen();
+        });
+      }
+    };
+
+    function checkKeyOnCloud(key, callback) {
+      db.child(key).once('value', (snapshot) => {
+        const expireStr = snapshot.val();
+        if (!expireStr) {
+          callback(false);
+          return;
+        }
+        const isExpired = new Date(expireStr) < new Date();
+        callback(!isExpired);
+      });
+    }
+
+    function verifyKey() {
+      // Tự động loại bỏ khoảng trắng thừa ở 2 đầu và viết hoa Key
+      const input = document.getElementById('user-key').value.trim().toUpperCase();
+      const msg = document.getElementById('msg');
+      const btn = document.getElementById('btn-verify');
+
+      if (!input) {
+        msg.style.color = '#ff4d4d';
+        msg.innerText = 'Vui lòng điền mã Key!';
+        return;
+      }
+
+      btn.disabled = true;
+      msg.style.color = '#25f4ee';
+      msg.innerText = 'Đang kiểm tra Key trên Đám mây...';
+
+      checkKeyOnCloud(input, (isValid) => {
+        btn.disabled = false;
+        if (isValid) {
+          localStorage.setItem('active_user_key', input);
+          msg.style.color = '#25f4ee';
+          msg.innerText = 'Kích hoạt thành công!';
+          setTimeout(openToolScreen, 500);
+        } else {
+          msg.style.color = '#ff4d4d';
+          msg.innerText = 'Key không hợp lệ hoặc đã hết hạn!';
+        }
+      });
+    }
+
+    function openToolScreen() {
+      document.getElementById('key-screen').style.display = 'none';
+      document.getElementById('tool-screen').style.display = 'block';
+      scanLive();
+    }
+
+    function scanLive() {
+      const list = document.getElementById('live-list');
+      list.innerHTML = '<div class="loading">📡 Đang quét hệ thống TikTok Live...</div>';
+
+      setTimeout(() => {
+        const mockLives = [
+          { user: '@kenh_san_xu_01', desc: 'Rương 5.000 Xu thả liên tục mỗi 3 phút', coins: '5.000 Xu', url: 'https://www.tiktok.com' },
+          { user: '@game_show_live', desc: 'Săn rương khủng - Vào nhặt là có xu', coins: '3.200 Xu', url: 'https://www.tiktok.com' },
+          { user: '@idol_tiktok_88', desc: 'PK Thả rương xu lớn cho người xem', coins: '1.800 Xu', url: 'https://www.tiktok.com' },
+          { user: '@tong_kho_giare', desc: 'Tri ân khách hàng - Tặng rương ngẫu nhiên', coins: '900 Xu', url: 'https://www.tiktok.com' }
+        ];
+
+        list.innerHTML = '';
+        mockLives.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'live-card';
+          card.innerHTML = `
+            <div class="live-info">
+              <div class="live-user">${item.user} <span style="font-size: 0.7rem; color: #25f4ee;">✔</span></div>
+              <div class="live-desc">${item.desc}</div>
+            </div>
+            <div class="live-right">
+              <span class="coin-badge">🎁 ${item.coins}</span>
+              <a href="${item.url}" target="_blank" class="btn-go">Vào Live</a>
+            </div>
+          `;
+          list.appendChild(card);
+        });
+      }, 600);
+    }
+  </script>
+</body>
+</html>
